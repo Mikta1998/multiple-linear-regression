@@ -1,3 +1,7 @@
+LEARNING_RATE = 0.001
+
+
+
 def mean_squared_error(y_true, y_pred):
     residuals_squared = []
 
@@ -52,4 +56,22 @@ def calculate_slope_gradient(X, y_true, slopes, intercept):
         average_slope_gradients.append(total_slope_gradient / len(sample_slope_gradients))
 
     return average_slope_gradients
+
+
+
+def update_intercept(X, y_true, m, b, learning_rate=LEARNING_RATE):
+    intercept_gradient = calculate_intercept_gradient(X, y_true, m, b)
+    b = b - learning_rate * intercept_gradient
+    return b
+
+
+
+def update_slope(X, y_true, m, b, learning_rate=LEARNING_RATE):
+    slope_gradient = calculate_slope_gradient(X, y_true, m, b)
+    updated_slopes = []
+    for slope in range(len(m)):
+        slope = m[slope] - learning_rate * slope_gradient[slope]
+        updated_slopes.append(slope)
+
+    return updated_slopes
 
